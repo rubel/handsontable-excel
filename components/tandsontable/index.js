@@ -2,345 +2,112 @@
 
 import { HotTable } from "@handsontable/react-wrapper";
 import { registerAllModules } from "handsontable/registry";
-import "handsontable/styles/handsontable.min.css";
-import "handsontable/styles/ht-theme-main.min.css";
-import { useRef, useState } from "react";
+import "handsontable/dist/handsontable.full.min.css";
 
-// Register all Handsontable modules
+import { useRef, useState } from "react";
+import { tableData, tableHeaders } from "./data";
+
 registerAllModules();
 
 export default function HandsontableDemo() {
   const hotRef = useRef(null);
-  const [data, setData] = useState([
-    [
-      "11087083",
-      "TP-TWNCC-NA-GF-HVAC-FCU-0003",
-      "Active",
-      "AC1105 設備",
-      "TWNCC-AC",
-      "220177:CIC [Construction Industry Council]",
-      "11087051",
-      "",
-      "技術ID 12345",
-      "HV00:HSD1 & VESD",
-      "AH0:ASSD & HSD1",
-      "A4250:AS1-GF",
-      "08:BTSD",
-      2,
-      "08.11.2010",
-      "索尼",
-      "JP:Japan",
-      "型號123",
-      "序號321",
-      600,
-      "HKD:Hong Kong Dollar",
-      "01.01.2010",
-      "庫存 123",
-      "38樓20室",
-      "資產編號 123",
-      "區域編號 123",
-      "SER,LTS",
-      "05.09.2010",
-      "04.09.2012",
-      "03.08.2009",
-      "02.08.2013",
-      "設備備註1 設備備註2設備備註3 設備備註1105",
-      "TECHFREE",
-      234,
-      "設備位置",
-      "AC MOTOR",
-      200,
-      "",
-    ],
-    [
-      "11087084",
-      "TP-TWNCC-NA-GF-HVAC-FCU-0004",
-      "Active",
-      "AC1105 設備",
-      "TWNCC-AC",
-      "220177:CIC [Construction Industry Council]",
-      "11087051",
-      "",
-      "",
-      "HV00:HSD1 & VESD",
-      "AH0:ASSD & HSD1",
-      "A4250:AS1-GF",
-      "08:BTSD",
-      2,
-      "08.11.2010",
-      "索尼",
-      "JP:Japan",
-      "型號123",
-      "",
-      600,
-      "HKD:Hong Kong Dollar",
-      "01.01.2010",
-      "庫存 123",
-      "38樓20室",
-      "資產編號 123",
-      "區域編號 123",
-      "SER,LTS",
-      "05.09.2010",
-      "04.09.2012",
-      "03.08.2009",
-      "02.08.2013",
-      "設備備註1 設備備註2 設備備註3",
-      "設備備註1105",
-      "TECHFREE",
-      234,
-      "設備位置",
-      "AC MOTOR",
-      200,
-    ],
-    [
-      "11087085",
-      "TP-TWNCC-NA-GF-HVAC-FCU-0003",
-      "Active",
-      "AC1105 設備",
-      "TWNCC-AC",
-      "220177:CIC [Construction Industry Council]",
-      "11087051",
-      "",
-      "HV00:HSD1 & VESD",
-      "AH0:ASSD & HSD1",
-      "A4250:AS1-GF",
-      "08:BTSD",
-      "2",
-      "08.11.2010",
-      "索尼",
-      "JP:Japan",
-      "型號123",
-      "",
-      "600",
-      "HKD:Hong Kong Dollar",
-      "01.01.2010",
-      "庫存 123",
-      "38樓20室",
-      "資產編號 123",
-      "區域編號 123",
-      "SER,LTS",
-      "05.09.2010",
-      "04.09.2012",
-      "03.08.2009",
-      "02.08.2013",
-      "設備備註1 設備備註2 設備備註3",
-      "設備備註1105",
-      "TECHFREE",
-      "234",
-      "設備位置",
-      "AC MOTOR",
-      "200",
-    ],
-    [
-      "11087086",
-      "TP-TWNCC-NA-GF-HVAC-FCU-0003",
-      "Mark Deleted",
-      "AC1105 設備",
-      "TWNCC-AC",
-      "100002:AMS [Auxiliary Medical Service]",
-      "11087051",
-      "",
-      "20251021",
-      "HV00:HSD1 & VESD",
-      "AH0:ASSD & HSD1",
-      "A4250:AS1-GF",
-      "08:BTSD",
-      "2",
-      "08.11.2010",
-      "索尼",
-      "JP:Japan",
-      "型號123",
-      "20251021",
-      "600",
-      "HKD:Hong Kong Dollar",
-      "01.01.2010",
-      "庫存 123",
-      "38樓20室",
-      "資產編號 123",
-      "區域編號 123",
-      "SER,LTS",
-      "05.09.2010",
-      "04.09.2012",
-      "03.08.2009",
-      "02.08.2013",
-      "設備備註1\n設備備註2\n設備備註3",
-      "設備備註1105",
-      "TECHFREE",
-      "234",
-      "設備位置",
-      "AC MOTOR",
-      "200",
-    ],
-    [
-      "11087088",
-      "TP-TWNCC-NA-GF-HVAC-FCU-0003",
-      "Active",
-      "AC1105 設備 [copy]",
-      "TWNCC-AC",
-      "200005:CAA [Council for Academic Accreditation]",
-      "11087051",
-      "",
-      "",
-      "HV00:HSD1 & VESD",
-      "AH0:ASSD & HSD1",
-      "A4250:AS1-GF",
-      "08:BTSD",
-      "2",
-      "08.11.2010",
-      "索尼",
-      "JP:Japan",
-      "型號123",
-      "",
-      "600",
-      "HKD:Hong Kong Dollar",
-      "01.01.2010",
-      "庫存 123",
-      "38樓20室",
-      "資產編號 123",
-      "區域編號 123",
-      "SER",
-      "05.09.2010",
-      "04.09.2012",
-      "03.08.2009",
-      "02.08.2013",
-      "設備備註1\n設備備註2\n設備備註3",
-      "設備備註1105",
-      "TECHFREE",
-      "234",
-      "設備位置",
-      "AC MOTOR",
-      "200",
-    ],
-    [
-      "11087089",
-      "TP-TWNCC-NA-GF-HVAC-FCU-0006",
-      "Active",
-      '(AC-1105: Equipment!@#$%^&*()_+{}|:"<>?~',
-      "TWNCC-AC",
-      "100002:AMS [Auxiliary Medical Service]",
-      "11087051",
-      "",
-      '1234!@#$%^&*()*+{}|:"<>?~',
-      "MN00:MUNSD",
-      "H40:NDH (EMA)",
-      "A4290:AS1-GFS",
-      "08:BTSD",
-      "9999999999",
-      "25.12.2010",
-      '!@#%^&*()*+{}|:"<>?~',
-      "JP:Japan",
-      'Model1234!@#$%^&*()_+{}|:"<>?~',
-      'Serial123!@#$%^&*()*+{}|:"<>?~',
-      "98765432100.23",
-      "HKD:Hong Kong Dollar",
-      "13.01.2010",
-      'Inve!@#$%^&*()*+{}|:"<>?~',
-      'RoomFloot!@#$%^&*()_+{}|:"<>?~',
-      '!@#%^&*()*+{}|:"<>?~',
-      '!@#%^&*()*+{}|:"<>?~',
-      "SER,BOS,LTS",
-      "15.02.2010",
-      "24.03.2011",
-      "11.01.2010",
-      "24.05.2012",
-      'This is AC1105 Equipment Long Text Description 1\nThis is AC1105 Equipment Long Text Description 2\nThis is AC1105 Equipment Long Text Description 3\nThis is AC1105 Equipment Long Text Description 4\nThis is AC1105 Equipment Long Text Description 5\nThis is AC1105 Equipment Long Text Description 6\nThis is AC1105 Equipment Long Text Description 7 \nThis is AC1105 Equipment Long Text Description 8\nThis is AC1105 Equipment Long Text Description 9 \nThis is AC1105 Equipment Long Text Description 10\nThis is AC1105 Equipment Long Text Description 11\nThis is AC1105 Equipment Long Text Description 12\nThis is AC1105 Equipment Long Text Description 13\nThis is AC1105 Equipment Long Text Description 14\nThis is AC1105 Equipment Long Text Description 15\nThis is AC1105 Equipment Long Text Description 16\nThis is AC1105 Equipment Long Text Description 17\nThis is AC1105 Equipment Long Text Description 18\nThis is AC1105 Equipment Long Text Description 19\n1234!@#$%^&*()_+{}|:""<>?~ Equipment Long t Description 20',
-      "!@#$%^&*()*+{}|",
-      "TECHFREE",
-      "999",
-      '1234EQUIP!@#$%^&*()*+{}|:"<>?~',
-      "AC MOTOR",
-      "999",
-    ],
-  ]);
+  const [data, setData] = useState(tableData);
 
   const handleAfterChange = (changes) => {
-    if (changes) {
-      const newData = [...data];
-      changes.forEach(([row, col, oldVal, newVal]) => {
-        newData[row][col] = newVal;
-      });
-      setData(newData);
-    }
+    if (!changes) return;
+    const newData = [...data];
+    changes.forEach(([row, col, , newVal]) => {
+      newData[row][col] = newVal;
+    });
+    setData(newData);
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100vh",
-        boxSizing: "border-box",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <h1 style={{ marginBottom: "10px" }}>Handsontable Example</h1>
+    <div style={styles.page}>
+      {/* Title */}
+      <header style={styles.header}>
+        <h1 style={styles.title}>Handsontable</h1>
+        <p style={styles.subtitle}>
+          Sort, filter, edit • Hold <kbd>Shift</kbd> to sort multiple columns
+        </p>
+      </header>
 
-      <div
-        style={{
-          flex: 1,
-          overflowX: "scroll",
-          maxWidth: "calc(100vw - 10px)",
-          border: "1px solid black",
-        }}
-      >
+      <div style={styles.card}>
         <HotTable
           ref={hotRef}
           data={data}
-          colWidths={[
-            120, 280, 120, 180, 150, 100, 210, 290, 130, 150, 110, 140, 80, 80,
-            110, 110, 230, 90, 170, 130, 80, 130, 110, 90, 110, 110, 100, 180,
-            170, 160, 160, 170, 170, 60, 80, 150, 70, 170,
-          ]}
-          colHeaders={[
-            "Equipment No.",
-            "Asset Code",
-            "System Status",
-            "Equipment Description",
-            "Functional Location",
-            "Partner ID",
-            "CCS Superior Equipment No.",
-            "CCS Superior Equipment Technical ID No.",
-            "Technical ID No.",
-            "Authorization Group",
-            "Planner Group",
-            "Main Work Centre",
-            "Division",
-            "Quantity",
-            "Start-up Date",
-            "Manufacturer",
-            "Manufacturer Country or Region",
-            "Model No.",
-            "Manufacturer Serial No.",
-            "Acquisition Value",
-            "Currency",
-            "Acquisition Date",
-            "Inventory No.",
-            "Room/Floor",
-            "Asset Tag No.",
-            "Zone Tag No.",
-            "User Status",
-            "Customer Warranty Start",
-            "Customer Warranty End",
-            "Vendor Warranty Start",
-            "Vendor Warranty End",
-            "Equipment Long Text",
-            "Equipment Description",
-            "Make",
-            "Quantity",
-            "Equipment Location",
-            "Motor",
-            "Cooling Capacity (kW)",
-          ]}
-          dragToScroll
+          colHeaders={tableHeaders}
           rowHeaders={true}
           licenseKey="non-commercial-and-evaluation"
           stretchH="all"
-          autoColumnSize={false}
+          autoColumnSize={true}
+          dragToScroll
+          filters={true}
+          dropdownMenu={[
+            "alignment",
+            "filter_by_condition",
+            "filter_by_value",
+            "filter_operators",
+            "filter_action_bar",
+          ]}
+          columnSorting={{
+            indicator: true,
+            headerAction: true,
+            sortEmptyCells: true,
+          }}
+          multiColumnSorting={true}
           afterChange={handleAfterChange}
+          settings={{
+            colHeaderClassName: "ht-header",
+            rowHeaderClassName: "ht-row-header",
+            className: "ht-table",
+          }}
           style={{ width: "100%", height: "100%" }}
         />
       </div>
     </div>
   );
 }
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    background: "linear-gradient(to bottom, #f0f4f8, #d9e2ec)",
+    padding: "32px",
+    fontFamily:
+      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  },
+
+  header: {
+    marginBottom: "28px",
+    textAlign: "center",
+  },
+
+  title: {
+    margin: "0 0 8px 0",
+    fontSize: "2.5rem",
+    fontWeight: 800,
+    background: "linear-gradient(90deg, #667eea, #ff0000)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+  },
+
+  subtitle: {
+    margin: 0,
+    fontSize: "1rem",
+    color: "#64748b",
+    fontWeight: 500,
+  },
+
+  card: {
+    backgroundColor: "#ffffff",
+    boxShadow: `
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8)
+    `,
+    overflow: "hidden",
+    height: "calc(100vh - 180px)",
+  },
+};
