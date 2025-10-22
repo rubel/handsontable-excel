@@ -24,14 +24,6 @@ export default function HandsontableDemo() {
 
   return (
     <div style={styles.page}>
-      {/* Title */}
-      <header style={styles.header}>
-        <h1 style={styles.title}>Handsontable</h1>
-        <p style={styles.subtitle}>
-          Sort, filter, edit • Hold <kbd>Shift</kbd> to sort multiple columns
-        </p>
-      </header>
-
       <div style={styles.card}>
         <HotTable
           ref={hotRef}
