@@ -2,12 +2,135 @@
 
 import { HotTable } from "@handsontable/react-wrapper";
 import { registerAllModules } from "handsontable/registry";
-import "handsontable/dist/handsontable.full.min.css";
+import "handsontable/dist/handsontable.full.css";
 
 import { useRef, useState } from "react";
-import { tableData, tableHeaders } from "./data";
+import { colWidths, tableData, tableHeaders } from "./data";
+import {
+  antdSelectRenderer,
+  destroyAntdSelectRenderer,
+} from "./AntdSelectRenderer";
+import {
+  antdDatePickerRenderer,
+  destroyAntdDatePickerRenderer,
+} from "./AntdDateRenderer";
+import {
+  AntdNumericRenderer,
+  destroyNumericAntdRenderer,
+} from "./AntdNumericRenderer";
 
 registerAllModules();
+
+export const columnSettings = [
+  {
+    data: "equipmentNo",
+    type: "numeric",
+    allowInvalid: false,
+  },
+  { data: "assetCode" },
+  {
+    data: "systemStatus",
+    type: "dropdown",
+    source: ["Active", "Mark Deleted"],
+    strict: true,
+    allowInvalid: false,
+    renderer: antdSelectRenderer,
+    destroyRenderer: destroyAntdSelectRenderer,
+  },
+  { data: "functionalLocation" },
+  { data: "partnerID" },
+  { data: "cCSSuperiorEquipmentNo" },
+  { data: "cCSSuperiorEquipmentTechnicalIDNo" },
+  { data: "technicalIDNo" },
+  { data: "authorizationGroup" },
+  { data: "plannerGroup" },
+  { data: "mainWorkCentre" },
+  { data: "division" },
+  {
+    data: "startUpDate",
+    type: "date",
+    dateFormat: "DD.MM.YYYY",
+    correctFormat: true,
+    renderer: antdDatePickerRenderer,
+    destroyRenderer: destroyAntdDatePickerRenderer,
+  },
+  { data: "manufacturer" },
+  { data: "manufacturerCountryOrRegion" },
+  { data: "modelNo" },
+  { data: "manufacturerSerialNo" },
+  { data: "acquisitionValue" },
+  { data: "currency" },
+  {
+    data: "acquisitionDate",
+    type: "date",
+    dateFormat: "DD.MM.YYYY",
+    correctFormat: true,
+    renderer: antdDatePickerRenderer,
+    destroyRenderer: destroyAntdDatePickerRenderer,
+  },
+  { data: "inventoryNo" },
+  { data: "roomOrFloor" },
+  { data: "assetTagNo" },
+  { data: "zoneTagNo" },
+  { data: "userStatus" },
+  {
+    data: "customerWarrantyStart",
+    type: "date",
+    dateFormat: "DD.MM.YYYY",
+    correctFormat: true,
+    renderer: antdDatePickerRenderer,
+    destroyRenderer: destroyAntdDatePickerRenderer,
+  },
+  {
+    data: "customerWarrantyEnd",
+    type: "date",
+    dateFormat: "DD.MM.YYYY",
+    correctFormat: true,
+    renderer: antdDatePickerRenderer,
+    destroyRenderer: destroyAntdDatePickerRenderer,
+  },
+  {
+    data: "vendorWarrantyStart",
+    type: "date",
+    dateFormat: "DD.MM.YYYY",
+    correctFormat: true,
+    renderer: antdDatePickerRenderer,
+    destroyRenderer: destroyAntdDatePickerRenderer,
+  },
+  {
+    data: "vendorWarrantyEnd",
+    type: "date",
+    dateFormat: "DD.MM.YYYY",
+    correctFormat: true,
+    renderer: antdDatePickerRenderer,
+    destroyRenderer: destroyAntdDatePickerRenderer,
+  },
+  { data: "equipmentLongText" },
+  { data: "equipmentDescription" },
+  { data: "make" },
+  {
+    data: "quantity",
+    type: "numeric",
+    renderer: AntdNumericRenderer,
+    destroyRenderer: destroyNumericAntdRenderer,
+  },
+  { data: "equipmentLocation" },
+  {
+    data: "motor",
+    type: "dropdown",
+    source: ["AC MOTOR", "DC MOTOR"],
+    strict: true,
+    allowInvalid: false,
+    renderer: antdSelectRenderer,
+    destroyRenderer: destroyAntdSelectRenderer,
+  },
+  {
+    data: "coolingCapacitykW",
+    type: "numeric",
+    renderer: AntdNumericRenderer,
+    destroyRenderer: destroyNumericAntdRenderer,
+  },
+];
 
 export default function HandsontableDemo() {
   const hotRef = useRef(null);
@@ -28,6 +151,7 @@ export default function HandsontableDemo() {
         <HotTable
           ref={hotRef}
           data={data}
+          colWidths={colWidths}
           colHeaders={tableHeaders}
           rowHeaders={true}
           licenseKey="non-commercial-and-evaluation"
@@ -54,6 +178,7 @@ export default function HandsontableDemo() {
             rowHeaderClassName: "ht-row-header",
             className: "ht-table",
           }}
+          columns={columnSettings}
           style={{ width: "100%", height: "100%" }}
         />
       </div>
@@ -73,23 +198,6 @@ const styles = {
   header: {
     marginBottom: "28px",
     textAlign: "center",
-  },
-
-  title: {
-    margin: "0 0 8px 0",
-    fontSize: "2.5rem",
-    fontWeight: 800,
-    background: "linear-gradient(90deg, #667eea, #ff0000)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    backgroundClip: "text",
-  },
-
-  subtitle: {
-    margin: 0,
-    fontSize: "1rem",
-    color: "#64748b",
-    fontWeight: 500,
   },
 
   card: {
