@@ -155,15 +155,13 @@ export default function HandsontableDemo() {
     });
     setData(newData);
   };
-  const repeatedData = Array.from({ length: 10000 }, (_, i) => {
-    return data[i % data.length];
-  });
+
   return (
     <div style={styles.page}>
       <div style={styles.card}>
         <HotTable
           ref={hotRef}
-          data={repeatedData}
+          data={tableData}
           colWidths={colWidths}
           colHeaders={tableHeaders}
           rowHeaders={true}
