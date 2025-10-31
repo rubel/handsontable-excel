@@ -15,127 +15,138 @@ import {
   destroyAntdDatePickerRenderer,
 } from "./AntdDateRenderer";
 import {
-  AntdNumericRenderer,
-  destroyNumericAntdRenderer,
-} from "./AntdNumericRenderer";
+  destroyNumericCellRenderer,
+  NumericCellRenderer,
+} from "./NumericRenderer";
+import {
+  destroyStringCellRenderer,
+  StringCellRenderer,
+} from "./StringCellRenderer";
 
 registerAllModules();
-
-export const columnSettings = [
-  {
-    data: "equipmentNo",
-    type: "numeric",
-    allowInvalid: false,
-  },
-  { data: "assetCode" },
-  {
-    data: "systemStatus",
-    type: "dropdown",
-    source: ["Active", "Mark Deleted"],
-    strict: true,
-    allowInvalid: false,
-    renderer: antdSelectRenderer,
-    destroyRenderer: destroyAntdSelectRenderer,
-  },
-  { data: "functionalLocation" },
-  { data: "partnerID" },
-  { data: "cCSSuperiorEquipmentNo" },
-  { data: "cCSSuperiorEquipmentTechnicalIDNo" },
-  { data: "technicalIDNo" },
-  { data: "authorizationGroup" },
-  { data: "plannerGroup" },
-  { data: "mainWorkCentre" },
-  { data: "division" },
-  {
-    data: "startUpDate",
-    type: "date",
-    dateFormat: "DD.MM.YYYY",
-    correctFormat: true,
-    renderer: antdDatePickerRenderer,
-    destroyRenderer: destroyAntdDatePickerRenderer,
-  },
-  { data: "manufacturer" },
-  { data: "manufacturerCountryOrRegion" },
-  { data: "modelNo" },
-  { data: "manufacturerSerialNo" },
-  { data: "acquisitionValue" },
-  { data: "currency" },
-  {
-    data: "acquisitionDate",
-    type: "date",
-    dateFormat: "DD.MM.YYYY",
-    correctFormat: true,
-    renderer: antdDatePickerRenderer,
-    destroyRenderer: destroyAntdDatePickerRenderer,
-  },
-  { data: "inventoryNo" },
-  { data: "roomOrFloor" },
-  { data: "assetTagNo" },
-  { data: "zoneTagNo" },
-  { data: "userStatus" },
-  {
-    data: "customerWarrantyStart",
-    type: "date",
-    dateFormat: "DD.MM.YYYY",
-    correctFormat: true,
-    renderer: antdDatePickerRenderer,
-    destroyRenderer: destroyAntdDatePickerRenderer,
-  },
-  {
-    data: "customerWarrantyEnd",
-    type: "date",
-    dateFormat: "DD.MM.YYYY",
-    correctFormat: true,
-    renderer: antdDatePickerRenderer,
-    destroyRenderer: destroyAntdDatePickerRenderer,
-  },
-  {
-    data: "vendorWarrantyStart",
-    type: "date",
-    dateFormat: "DD.MM.YYYY",
-    correctFormat: true,
-    renderer: antdDatePickerRenderer,
-    destroyRenderer: destroyAntdDatePickerRenderer,
-  },
-  {
-    data: "vendorWarrantyEnd",
-    type: "date",
-    dateFormat: "DD.MM.YYYY",
-    correctFormat: true,
-    renderer: antdDatePickerRenderer,
-    destroyRenderer: destroyAntdDatePickerRenderer,
-  },
-  { data: "equipmentLongText" },
-  { data: "equipmentDescription" },
-  { data: "make" },
-  {
-    data: "quantity",
-    type: "numeric",
-    renderer: AntdNumericRenderer,
-    destroyRenderer: destroyNumericAntdRenderer,
-  },
-  { data: "equipmentLocation" },
-  {
-    data: "motor",
-    type: "dropdown",
-    source: ["AC MOTOR", "DC MOTOR"],
-    strict: true,
-    allowInvalid: false,
-    renderer: antdSelectRenderer,
-    destroyRenderer: destroyAntdSelectRenderer,
-  },
-  {
-    data: "coolingCapacitykW",
-    type: "numeric",
-    renderer: AntdNumericRenderer,
-    destroyRenderer: destroyNumericAntdRenderer,
-  },
-];
 
 export default function HandsontableDemo() {
   const hotRef = useRef(null);
   const [data, setData] = useState(tableData);
-
+  const columnSettings = [
+    {
+      data: "equipmentNo",
+      type: "numeric",
+      allowInvalid: false,
+    },
+    { data: "assetCode" },
+    {
+      data: "systemStatus",
+      type: "dropdown",
+      source: ["Active", "Mark Deleted"],
+      strict: true,
+      allowInvalid: false,
+      renderer: antdSelectRenderer,
+      destroyRenderer: destroyAntdSelectRenderer,
+    },
+    { data: "functionalLocation" },
+    { data: "partnerID" },
+    { data: "cCSSuperiorEquipmentNo" },
+    { data: "cCSSuperiorEquipmentTechnicalIDNo" },
+    { data: "technicalIDNo" },
+    {
+      data: "authorizationGroup",
+      type: "text",
+      min: 10,
+      max: 20,
+      renderer: StringCellRenderer,
+      destroyRenderer: destroyStringCellRenderer,
+    },
+    { data: "plannerGroup" },
+    { data: "mainWorkCentre" },
+    { data: "division" },
+    {
+      data: "startUpDate",
+      type: "date",
+      dateFormat: "DD.MM.YYYY",
+      correctFormat: true,
+      renderer: antdDatePickerRenderer,
+      destroyRenderer: destroyAntdDatePickerRenderer,
+    },
+    { data: "manufacturer" },
+    { data: "manufacturerCountryOrRegion" },
+    { data: "modelNo" },
+    { data: "manufacturerSerialNo" },
+    { data: "acquisitionValue" },
+    { data: "currency" },
+    {
+      data: "acquisitionDate",
+      type: "date",
+      dateFormat: "DD.MM.YYYY",
+      correctFormat: true,
+      renderer: antdDatePickerRenderer,
+      destroyRenderer: destroyAntdDatePickerRenderer,
+    },
+    { data: "inventoryNo" },
+    { data: "roomOrFloor" },
+    { data: "assetTagNo" },
+    { data: "zoneTagNo" },
+    { data: "userStatus" },
+    {
+      data: "customerWarrantyStart",
+      type: "date",
+      dateFormat: "DD.MM.YYYY",
+      correctFormat: true,
+      renderer: antdDatePickerRenderer,
+      destroyRenderer: destroyAntdDatePickerRenderer,
+    },
+    {
+      data: "customerWarrantyEnd",
+      type: "date",
+      dateFormat: "DD.MM.YYYY",
+      correctFormat: true,
+      renderer: antdDatePickerRenderer,
+      destroyRenderer: destroyAntdDatePickerRenderer,
+    },
+    {
+      data: "vendorWarrantyStart",
+      type: "date",
+      dateFormat: "DD.MM.YYYY",
+      correctFormat: true,
+      renderer: antdDatePickerRenderer,
+      destroyRenderer: destroyAntdDatePickerRenderer,
+    },
+    {
+      data: "vendorWarrantyEnd",
+      type: "date",
+      dateFormat: "DD.MM.YYYY",
+      correctFormat: true,
+      renderer: antdDatePickerRenderer,
+      destroyRenderer: destroyAntdDatePickerRenderer,
+    },
+    { data: "equipmentLongText" },
+    { data: "equipmentDescription" },
+    { data: "make" },
+    {
+      data: "quantity",
+      type: "numeric",
+      renderer: NumericCellRenderer,
+      destroyRenderer: destroyNumericCellRenderer,
+    },
+    { data: "equipmentLocation" },
+    {
+      data: "motor",
+      type: "dropdown",
+      source: ["AC MOTOR", "DC MOTOR"],
+      strict: true,
+      allowInvalid: false,
+      renderer: antdSelectRenderer,
+      destroyRenderer: destroyAntdSelectRenderer,
+    },
+    {
+      data: "coolingCapacitykW",
+      type: "numeric",
+      min: 100,
+      max: 1000,
+      renderer: NumericCellRenderer,
+      destroyRenderer: destroyNumericCellRenderer,
+    },
+  ];
   const handleAfterChange = (changes) => {
     if (!changes) return;
     const newData = [...data];
@@ -144,13 +155,15 @@ export default function HandsontableDemo() {
     });
     setData(newData);
   };
-
+  const repeatedData = Array.from({ length: 10000 }, (_, i) => {
+    return data[i % data.length];
+  });
   return (
     <div style={styles.page}>
       <div style={styles.card}>
         <HotTable
           ref={hotRef}
-          data={data}
+          data={repeatedData}
           colWidths={colWidths}
           colHeaders={tableHeaders}
           rowHeaders={true}
