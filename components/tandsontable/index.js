@@ -6,10 +6,7 @@ import "handsontable/dist/handsontable.full.css";
 
 import { useRef, useState } from "react";
 import { colWidths, tableData, tableHeaders } from "./data";
-import {
-  antdSelectRenderer,
-  destroyAntdSelectRenderer,
-} from "./AntdSelectRenderer";
+import { SelectRenderer, destroySelectRenderer } from "./SelectRenderer";
 import {
   antdDatePickerRenderer,
   destroyAntdDatePickerRenderer,
@@ -41,8 +38,8 @@ export default function HandsontableDemo() {
       source: ["Active", "Mark Deleted"],
       strict: true,
       allowInvalid: false,
-      renderer: antdSelectRenderer,
-      destroyRenderer: destroyAntdSelectRenderer,
+      renderer: SelectRenderer,
+      destroyRenderer: destroySelectRenderer,
     },
     { data: "functionalLocation" },
     { data: "partnerID" },
@@ -135,8 +132,8 @@ export default function HandsontableDemo() {
       source: ["AC MOTOR", "DC MOTOR"],
       strict: true,
       allowInvalid: false,
-      renderer: antdSelectRenderer,
-      destroyRenderer: destroyAntdSelectRenderer,
+      renderer: SelectRenderer,
+      destroyRenderer: destroySelectRenderer,
     },
     {
       data: "coolingCapacitykW",
