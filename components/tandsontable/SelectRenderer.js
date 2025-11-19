@@ -15,7 +15,7 @@ export function SelectRenderer(
   const select = document.createElement("select");
   select.style.cssText = `
     width: 90%;
-    height: 28px;          /* natural select height */
+    height: 28px;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 0 8px;
@@ -31,9 +31,9 @@ export function SelectRenderer(
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches;
   if (darkMode) {
-    select.style.backgroundColor = "#1e1e1e";
-    select.style.color = "#fff";
-    select.style.border = "1px solid #555";
+    select.style.backgroundColor = "#fff";
+    select.style.color = "#000";
+    select.style.border = "1px solid #ccc";
   }
 
   const source = cellProperties.source || [];
@@ -46,8 +46,6 @@ export function SelectRenderer(
 
   select.value = value ?? "";
 
-  // Update Handsontable data on blur instead of change
-  // This prevents Handsontable from replacing the select while choosing
   select.addEventListener("blur", () => {
     const newValue = select.value;
     if (instance.getDataAtCell(row, col) !== newValue) {
@@ -55,7 +53,6 @@ export function SelectRenderer(
     }
   });
 
-  // Optional: open dropdown on focus
   select.addEventListener("mousedown", (e) => {
     e.stopPropagation(); // prevent Handsontable cell focus from interfering
   });
