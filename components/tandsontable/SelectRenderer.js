@@ -14,16 +14,27 @@ export function SelectRenderer(
 
   const select = document.createElement("select");
   select.style.cssText = `
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: transparent;
-    font-size: 14px;
+    width: 90%;
+    height: 28px;          /* natural select height */
+    border: 1px solid #ccc;
+    border-radius: 4px;
     padding: 0 8px;
     box-sizing: border-box;
-    outline: none;
+    font-size: 14px;
     cursor: pointer;
+    background-color: #fff;
+    color: #000;
   `;
+
+  // Dark mode support
+  const darkMode =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+  if (darkMode) {
+    select.style.backgroundColor = "#1e1e1e";
+    select.style.color = "#fff";
+    select.style.border = "1px solid #555";
+  }
 
   const source = cellProperties.source || [];
   source.forEach((item) => {
@@ -35,24 +46,22 @@ export function SelectRenderer(
 
   select.value = value ?? "";
 
-  select.addEventListener("change", () => {
+  // Update Handsontable data on blur instead of change
+  // This prevents Handsontable from replacing the select while choosing
+  select.addEventListener("blur", () => {
     const newValue = select.value;
     if (instance.getDataAtCell(row, col) !== newValue) {
       instance.setDataAtCell(row, col, newValue);
     }
   });
 
-  td.addEventListener(
-    "mousedown",
-    (e) => {
-      e.preventDefault();
-      select.focus();
-      setTimeout(() => select.click(), 0);
-    },
-    { once: true }
-  );
+  // Optional: open dropdown on focus
+  select.addEventListener("mousedown", (e) => {
+    e.stopPropagation(); // prevent Handsontable cell focus from interfering
+  });
 
   td.appendChild(select);
+
   return td;
 }
 
